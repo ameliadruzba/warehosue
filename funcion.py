@@ -19,11 +19,14 @@ def get_items():
         print(f"{number}. {items}")
 
 def get_sold_items():
-    prof = 0
+    total_reve = 0
+    total_profi = 0
     for i in sold:
-        prof += i.profit
-        print(i)
-    print(f'Suma zyskow: {prof}')
+        print(f'Nazwa produktu: {i.product_name}\nIlosc sprzedanych sztuk: {i.sold_quantity}\nKoszt: {i.cost} zł\nPrzychód: {i.revenue} zł\nZysk: {i.profit} zł')
+        total_reve += i.revenue
+        total_profi += i.profit
+    print(50 * '-')
+    print(f'Laczny przychod: {total_reve}\nLaczny zysk: {total_profi}')
 
 def sell_item():
     item = input('Podaj nazwe produktu: ')
@@ -39,6 +42,7 @@ def sell_item():
                 sold.append(p)
                 print(f'Cena produktow wynosi {price} zl')
                 get_items()
+                print(50*"-")
             else:
                 print('Niestety nie posiadamy takiej ilosci na magazynie')
                 break

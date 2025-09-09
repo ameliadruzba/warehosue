@@ -1,6 +1,6 @@
 from funcion import get_items, create_product, add_product, sell_item, get_sold_items
 while True:
-    question = int(input(f'Podaj liczbę:\n1.Lista magazynu\n2.Dodaj produkt\n3.Sprzedaz\4.Pokaz liste sprzedanych przedmiotow '))
+    question = int(input(f'Podaj liczbę:\n1.Lista magazynu\n2.Dodaj produkt\n3.Sprzedaz\n4.Pokaz liste sprzedanych przedmiotow '))
     if question == 1:
         get_items()
     if question == 2:
