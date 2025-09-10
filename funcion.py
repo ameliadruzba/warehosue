@@ -1,4 +1,5 @@
 from klasy import Product, SoldProduct
+import csv
 
 product_space = [Product('maslo', 4, 'kg', 5), Product('bob', 5, 'kg', 5)]
 sold = []
@@ -18,15 +19,17 @@ def get_items():
     for number, items in enumerate(product_space, start=1):
         print(f"{number}. {items}")
 
-def get_sold_items():
+def get_sold_items(detals = True):
     total_reve = 0
     total_profi = 0
     for i in sold:
-        print(f'Nazwa produktu: {i.product_name}\nIlosc sprzedanych sztuk: {i.sold_quantity}\nKoszt: {i.cost} zł\nPrzychód: {i.revenue} zł\nZysk: {i.profit} zł')
         total_reve += i.revenue
         total_profi += i.profit
-    print(50 * '-')
-    print(f'Laczny przychod: {total_reve}\nLaczny zysk: {total_profi}')
+        if detals:
+            print(f'Nazwa produktu: {i.product_name}\nIlosc sprzedanych sztuk: {i.sold_quantity}\nKoszt: {i.cost} zł\nPrzychód: {i.revenue} zł\nZysk: {i.profit} zł')
+            print(50 * '-')
+            print(f'Laczny przychod: {total_reve}\nLaczny zysk: {total_profi}')
+    return total_profi, total_reve
 
 def sell_item():
     item = input('Podaj nazwe produktu: ')
@@ -49,4 +52,22 @@ def sell_item():
         if not found:
             print('Nie posiadamy takiego artykulu na magazynie')
 
+def save_all_product_to_csv():  
+    with open('all_product.csv', 'w', newline='', encoding='utf-8') as plik:
+        ob = csv.writer(plik)
+        ob.writerows([p.product_name, p.quantity, p.unit, p.price] for p in product_space)
 
+
+def save_sold_product_to_csv():
+    with open('sold_product.csv', 'w', newline='', encoding='utf-8') as plik:
+        ob = csv.writer(plik)
+        ob.writerow(['nazwa_produktu, sprzedana_ilosc, cena_jednostkowa'])
+        ob.writerow([])
+        ob.writerows([[p.product_name, p.sold_quantity, p.price] for p in sold])
+        ob.writerow([])
+        total_profi, total_reve = get_sold_items(detals = False)
+        ob.writerow(["Łączny przychód", total_reve])
+        ob.writerow(["Łączny zysk", total_profi])
+
+
+        
