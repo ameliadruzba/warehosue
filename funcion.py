@@ -1,8 +1,8 @@
 from klasy import Product, SoldProduct
 import csv
 
-product_space = [Product('maslo', 4, 'kg', 5), Product('bob', 5, 'kg', 5)]
-sold = []
+product_space = [Product('maslo', 4, 'kg', 5), Product('bob', 5, 'kg', 5), Product('woda', 10, 'l', 2)]
+sold = [SoldProduct('maslo', 2, 10)]
 
 def create_product():
     name = input('Nazwa produkt: ')
@@ -57,7 +57,6 @@ def save_all_product_to_csv():
         ob = csv.writer(plik)
         ob.writerows([p.product_name, p.quantity, p.unit, p.price] for p in product_space)
 
-
 def save_sold_product_to_csv():
     with open('sold_product.csv', 'w', newline='', encoding='utf-8') as plik:
         ob = csv.writer(plik)
@@ -69,5 +68,20 @@ def save_sold_product_to_csv():
         ob.writerow(["Łączny przychód", total_reve])
         ob.writerow(["Łączny zysk", total_profi])
 
-
+def delete_product():
+    name_of_delete_product = input('Podaj nazwe prodruktu, ktorego chcesz usunac z listy: ')
+    for i in product_space:
+        if name_of_delete_product.lower() == i.product_name.lower():
+            product_space.remove(i)
+            print('Produkt zostal usuniety z listy.')
+        else:
+            print('Taki produkt nie znajudje sie na liscie')
         
+def delete_sold_product():
+    name_of_delete_product = input('Podaj nazwe prodruktu, ktorego chcesz usunac z listy: ')
+    for i in sold:
+        if name_of_delete_product.lower() == i.product_name.lower():
+            sold.remove(i)
+            print('Produkt zostal usuniety z listy.')
+        else:
+            print('Taki produkt nie znajudje sie na liscie')
